@@ -1,0 +1,33 @@
+{
+  "info": {
+    "name": "CCA - API móvil (mínimos iniciales)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "docenteId", "value": "UUID-DEL-DOCENTE" },
+    { "key": "seccionId", "value": "UUID-DE-SECCION" }
+  ],
+  "item": [
+    {
+      "name": "Horarios del docente",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/movil/docentes/{{docenteId}}/horarios" }
+    },
+    {
+      "name": "Estudiantes de la sección",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/movil/secciones/{{seccionId}}/estudiantes" }
+    },
+    {
+      "name": "Registrar asistencia por lote (editar IDs antes de enviar)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"seccionId\": \"UUID-DE-SECCION\",\n  \"anioLectivoId\": \"UUID-DEL-ANIO\",\n  \"fecha\": \"2026-10-26\",\n  \"momento\": \"ENTRADA\",\n  \"horarioId\": null,\n  \"docenteId\": \"UUID-DEL-DOCENTE\",\n  \"registros\": [\n    {\n      \"estudianteId\": \"UUID-DEL-ESTUDIANTE\",\n      \"estado\": \"PRESENTE\",\n      \"clientUuid\": \"UUID-UNICO-GENERADO-POR-EL-TELEFONO\",\n      \"justificacion\": null\n    }\n  ]\n}"
+        },
+        "url": "{{baseUrl}}/api/movil/asistencia/lote"
+      }
+    }
+  ]
+}
